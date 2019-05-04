@@ -9,9 +9,11 @@ namespace SudokuTestProject
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("log");
             //easy1();
-            easyKiller();
+            //easyKiller();
+            //mediumKiller();
+            mediumKiller2();
+
             //noCages();
             //noCagesMed();
             //noCagesHard();
@@ -21,6 +23,8 @@ namespace SudokuTestProject
             //noCagesEvil();
 
             //test();
+
+            //test2();
 
             //SortedSet<int> posibilities = CageCombinationFinder.CagePossibilities(8, 3);
             Console.Write("");
@@ -122,13 +126,104 @@ namespace SudokuTestProject
             cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(3, 7), new Tuple<int, int>(4, 6), new Tuple<int, int>(4, 7), new Tuple<int, int>(3, 8) }, 10));
 
 
-            KillerSudoku killerSudoku = new KillerSudoku(cages, new Board());
-
+            KillerSudoku killerSudoku = new KillerSudoku(cages, new Board(null, new Logger(true)));
+            
             killerSudoku.Print();
 
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-            Solver.Solve(killerSudoku);
+            KillerSudoku killerSudoku1 = Solver.Solve(killerSudoku);
+            stopwatch.Stop();
+
+            Console.WriteLine(stopwatch.Elapsed);
+        }
+
+        public static void mediumKiller()
+        {
+            List<Cage> cages = new List<Cage>();
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(0, 0), new Tuple<int, int>(0, 1), new Tuple<int, int>(0, 2) }, 12));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(1, 0), new Tuple<int, int>(1, 1) }, 15));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(2, 0), new Tuple<int, int>(2, 1) }, 10));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(3, 0), new Tuple<int, int>(4, 0) }, 12));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(3, 1), new Tuple<int, int>(4, 1) }, 7));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(5, 0), new Tuple<int, int>(5, 1) }, 8));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(6, 0), new Tuple<int, int>(7, 0) }, 11));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(6, 1), new Tuple<int, int>(7, 1) }, 7));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(6, 2), new Tuple<int, int>(7, 2) }, 9));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(8, 0), new Tuple<int, int>(8, 1), new Tuple<int, int>(8, 2) }, 18));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(4, 2), new Tuple<int, int>(5, 2) }, 10));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(2, 2), new Tuple<int, int>(3, 2) }, 14));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(0, 3), new Tuple<int, int>(0, 4) }, 14));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(1, 3), new Tuple<int, int>(1, 2), new Tuple<int, int>(2, 3) }, 6));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(3, 3), new Tuple<int, int>(4, 3) }, 15));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(5, 3), new Tuple<int, int>(6, 3) }, 12));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(5, 4), new Tuple<int, int>(6, 4), new Tuple<int, int>(7, 4), new Tuple<int, int>(7, 3) }, 16));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(8, 3), new Tuple<int, int>(8, 4) }, 7));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(1, 4), new Tuple<int, int>(2, 4) }, 16));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(3, 4), new Tuple<int, int>(4, 4) }, 6));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(0, 5), new Tuple<int, int>(1, 5) }, 7));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(2, 5), new Tuple<int, int>(3, 5), new Tuple<int, int>(4, 5) }, 13));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(5, 5), new Tuple<int, int>(5, 6) }, 16));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(6, 5), new Tuple<int, int>(6, 6) }, 8));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(7, 5), new Tuple<int, int>(7, 6), new Tuple<int, int>(7, 7) }, 20));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(8, 5), new Tuple<int, int>(8, 6) }, 10));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(0, 6), new Tuple<int, int>(0, 7) }, 8));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(0, 8), new Tuple<int, int>(1, 7), new Tuple<int, int>(1, 8), new Tuple<int, int>(2, 7), new Tuple<int, int>(2, 8) }, 29));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(1, 6), new Tuple<int, int>(2, 6), new Tuple<int, int>(3, 6), new Tuple<int, int>(3, 7) }, 18));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(3, 8), new Tuple<int, int>(4, 8) }, 11));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(4, 6), new Tuple<int, int>(4, 7) }, 3));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(5, 7), new Tuple<int, int>(5, 8), new Tuple<int, int>(6, 7), new Tuple<int, int>(6, 8) }, 20));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(7, 8), new Tuple<int, int>(8, 7), new Tuple<int, int>(8, 8) }, 17));
+
+            KillerSudoku killerSudoku = new KillerSudoku(cages, new Board(null, new Logger(true)));
+
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            KillerSudoku killerSudoku1 = Solver.Solve(killerSudoku);
+            killerSudoku.board.logger = new Logger(true);
+            stopwatch.Stop();
+
+            Console.WriteLine(stopwatch.Elapsed);
+        }
+
+        public static void mediumKiller2()
+        {
+            List<Cage> cages = new List<Cage>();
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(0, 0), new Tuple<int, int>(1, 0), new Tuple<int, int>(2, 0), new Tuple<int, int>(2, 1), new Tuple<int, int>(3, 0) }, 19));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(4, 0), new Tuple<int, int>(3, 1), new Tuple<int, int>(4, 1) }, 14));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(5, 0), new Tuple<int, int>(6, 0), new Tuple<int, int>(7, 0) }, 23));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(8, 0), new Tuple<int, int>(8, 1), new Tuple<int, int>(7, 1) }, 11));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(5, 1), new Tuple<int, int>(6, 1) }, 6));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(0, 1), new Tuple<int, int>(0, 2), new Tuple<int, int>(1, 1), new Tuple<int, int>(1, 2), new Tuple<int, int>(1, 3) }, 33));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(2, 2), new Tuple<int, int>(2, 3) }, 9));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(3, 2), new Tuple<int, int>(4, 2), new Tuple<int, int>(3, 3), new Tuple<int, int>(4, 3) }, 24));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(5, 2), new Tuple<int, int>(6, 2) }, 9));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(7, 2), new Tuple<int, int>(8, 2) }, 7));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(5, 3), new Tuple<int, int>(6, 3) }, 10));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(7, 3), new Tuple<int, int>(8, 3) }, 11));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(0, 3), new Tuple<int, int>(0, 4) }, 7));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(1, 4), new Tuple<int, int>(2, 4), new Tuple<int, int>(3, 4) }, 18));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(5, 4), new Tuple<int, int>(6, 4), new Tuple<int, int>(7, 4) }, 16));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(4, 4), new Tuple<int, int>(4, 5), new Tuple<int, int>(4, 6) }, 11));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(8, 5), new Tuple<int, int>(8, 4) }, 8));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(0, 5), new Tuple<int, int>(0, 6) }, 10));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(1, 5), new Tuple<int, int>(1, 6) }, 9));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(2, 5), new Tuple<int, int>(3, 5) }, 9));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(2, 6), new Tuple<int, int>(3, 6), new Tuple<int, int>(3, 7) }, 15));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(0, 7), new Tuple<int, int>(0, 8), new Tuple<int, int>(1, 7), new Tuple<int, int>(1, 8), new Tuple<int, int>(2, 7) }, 28));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(2, 8), new Tuple<int, int>(3, 8), new Tuple<int, int>(4, 8), new Tuple<int, int>(4, 7) }, 19));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(5, 5), new Tuple<int, int>(5, 6), new Tuple<int, int>(5, 7), new Tuple<int, int>(5, 8) }, 18));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(6, 5), new Tuple<int, int>(6, 6), new Tuple<int, int>(7, 5), new Tuple<int, int>(7, 6) }, 23));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(8, 6), new Tuple<int, int>(8, 7), new Tuple<int, int>(7, 7), new Tuple<int, int>(8, 8) }, 21));
+            cages.Add(new Cage(new List<Tuple<int, int>>() { new Tuple<int, int>(6, 7), new Tuple<int, int>(6, 8), new Tuple<int, int>(7, 8) }, 17));
+
+            KillerSudoku killerSudoku = new KillerSudoku(cages, new Board(null, new Logger(false)));
+            killerSudoku.Print();
+
+
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            KillerSudoku killerSudoku1 = Solver.Solve(killerSudoku);
             stopwatch.Stop();
 
             Console.WriteLine(stopwatch.Elapsed);
@@ -403,6 +498,13 @@ namespace SudokuTestProject
 
             killerSudoku.Print();
 
+            Solver.Solve(killerSudoku);
+        }
+
+        public static void test2()
+        {
+            KillerSudoku killerSudoku = new KillerSudoku(new List<Cage>(), new Board());
+            killerSudoku.Print();
             Solver.Solve(killerSudoku);
         }
     }

@@ -7,16 +7,11 @@ namespace KillerSudokuSolver
 {
     public class CageCombinationFinder
     {
-        public static SortedSet<int> CagePossibilities(int cageValue, int tiles)
+        public static List<SortedSet<int>> CagePossibilities(int cageValue, int tiles)
         {
-            List<SortedSet<int>> listResult = CalculatePosibilitiesNotAdd(cageValue, new SortedSet<int>(), 0)
+            return CalculatePosibilitiesNotAdd(cageValue, new SortedSet<int>(), 0)
                 .Where(x => x.Count == tiles)
                 .ToList();
-
-            SortedSet<int> result = new SortedSet<int>();
-            listResult.ForEach(x => x.ToList().ForEach(y => result.Add(y)));
-
-            return result;
         }
 
         public static List<SortedSet<int>> CalculatePosibilitiesAdd(int remainingvalue, SortedSet<int> currentset, int nextValue)
@@ -25,15 +20,17 @@ namespace KillerSudokuSolver
             currentset.ToList().ForEach(x => newPosibility.Add(x));
             remainingvalue -= nextValue;
             newPosibility.Add(nextValue);
-            if(remainingvalue == 0)
+            if (remainingvalue == 0)
             {
-                return new List<SortedSet<int>>() { newPosibility };
+                List<SortedSet<int>> result = new List<SortedSet<int>>();
+                result.Add(newPosibility);
+                return result;
             }
-            if(remainingvalue < 0)
+            if (remainingvalue < 0)
             {
                 return new List<SortedSet<int>>();
             }
-            if(nextValue >= 9)
+            if (nextValue >= 9)
             {
                 return new List<SortedSet<int>>();
             }
@@ -41,7 +38,8 @@ namespace KillerSudokuSolver
             {
                 List<SortedSet<int>> res = CalculatePosibilitiesAdd(remainingvalue, newPosibility, nextValue + 1);
                 List<SortedSet<int>> res2 = CalculatePosibilitiesNotAdd(remainingvalue, newPosibility, nextValue + 1);
-                return res.Concat(res2).ToList();
+                res2.ToList().ForEach(x => res.Add(x));
+                return res;
             }
         }
 
@@ -54,7 +52,8 @@ namespace KillerSudokuSolver
 
             List<SortedSet<int>> res = CalculatePosibilitiesAdd(remainingvalue, currentset, nextValue + 1);
             List<SortedSet<int>> res2 = CalculatePosibilitiesNotAdd(remainingvalue, currentset, nextValue + 1);
-            return res.Concat(res2).ToList();
+            res2.ToList().ForEach(x => res.Add(x));
+            return res;
         }
     } 
 }
