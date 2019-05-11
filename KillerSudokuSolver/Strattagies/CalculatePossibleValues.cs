@@ -11,20 +11,21 @@ namespace KillerSudokuSolver.Strattagies
         public Tuple<KillerSudoku, bool> Execute(KillerSudoku killerSudoku)
         {
             Board board = killerSudoku.Board;
-            board.board.ForEach(row => row.ForEach(col =>
+            board.allFields().ForEach(col =>
             {
                 if (col.Value == 0)
                 {
                     //Add col.PossibleValues
-                    col.PossibleValues = ValidValueCombiner.ValidValues(killerSudoku, board.getColumn(col.Coordinates.Item1));
+                    if (col.PossibleValues.Count == 0) col.PossibleValues = Helper.PossibleValues(killerSudoku);
+                    col.PossibleValues = ValidValueCombiner.ValidValues(killerSudoku, board.getColumn(col.Coordinates.Item1), col.PossibleValues);
                     col.PossibleValues = ValidValueCombiner.ValidValues(killerSudoku, board.getRow(col.Coordinates.Item2), col.PossibleValues);
                     col.PossibleValues = ValidValueCombiner.ValidValues(killerSudoku,
-                        board.getKube(killerSudoku, col.Kube(board.allFields().Count)),
+                        board.getKube(killerSudoku, col.Kube(board.board.Count)),
                         col.PossibleValues);
                 }
-            }));
+            });
 
-            return new Tuple<KillerSudoku, bool>(killerSudoku, true);
+            return new Tuple<KillerSudoku, bool>(killerSudoku, false);
         }
     }
 }

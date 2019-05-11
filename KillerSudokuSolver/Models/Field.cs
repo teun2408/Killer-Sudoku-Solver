@@ -18,7 +18,8 @@ namespace KillerSudokuSolver.Models
         public Tuple<int, int> Kube(int size)
         {
             int kubecount = Convert.ToInt32(Math.Sqrt(size));
-            return new Tuple<int, int>(Coordinates.Item1 / kubecount, Coordinates.Item2 / kubecount);
+            Tuple<int, int> kube = new Tuple<int, int>(Coordinates.Item1 / kubecount, Coordinates.Item2 / kubecount);
+            return kube;
         }
 
         public SortedSet<int> PossibleValues { get; set; }

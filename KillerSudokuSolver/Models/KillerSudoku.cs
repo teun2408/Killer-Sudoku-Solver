@@ -20,6 +20,7 @@ namespace KillerSudokuSolver.Models
         {
             this.Board = board;
             this.Cages = cages;
+            this.TempooraryCages = new List<Cage>();
             this.Cages.ForEach(cage => 
             {
                 cage.Coordinates.ForEach(cor => { cage.Fields.Add(GetField(cor)); GetField(cor).Cage = cage; } );

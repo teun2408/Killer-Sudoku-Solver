@@ -26,7 +26,7 @@ namespace KillerSudokuSolver.Strattagies
                     .ToList()
                     .ForEach(cage =>
                     {
-                        if (cage.completedCage().Fields.All(x => rowColKube.Contains(x)))
+                        if (cage.CompletedCage().Fields.All(x => rowColKube.Contains(x)))
                         {
                             cage.Fields
                                 .Where(x => rowColKube.Contains(x))

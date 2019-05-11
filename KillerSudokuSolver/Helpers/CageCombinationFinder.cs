@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace KillerSudokuSolver
+namespace KillerSudokuSolver.Helpers
 {
     public class CageCombinationFinder
     {
-        public static List<SortedSet<int>> CagePossibilities(int cageValue, int tiles)
+        public static List<SortedSet<int>> CagePossibilities(int cageValue, int tiles, SortedSet<int> possibleValues)
         {
             return CalculatePosibilitiesNotAdd(cageValue, new SortedSet<int>(), 0)
                 .Where(x => x.Count == tiles)
+                .Where(x => x.All(y => possibleValues.Contains(y)))
                 .ToList();
         }
 
-        public static List<SortedSet<int>> CalculatePosibilitiesAdd(int remainingvalue, SortedSet<int> currentset, int nextValue)
+        private static List<SortedSet<int>> CalculatePosibilitiesAdd(int remainingvalue, SortedSet<int> currentset, int nextValue)
         {
             SortedSet<int> newPosibility = new SortedSet<int>();
             currentset.ToList().ForEach(x => newPosibility.Add(x));
@@ -43,7 +44,7 @@ namespace KillerSudokuSolver
             }
         }
 
-        public static List<SortedSet<int>> CalculatePosibilitiesNotAdd(int remainingvalue, SortedSet<int> currentset, int nextValue)
+        private static List<SortedSet<int>> CalculatePosibilitiesNotAdd(int remainingvalue, SortedSet<int> currentset, int nextValue)
         {
             if(nextValue >= 9)
             {

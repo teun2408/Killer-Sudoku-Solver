@@ -8,7 +8,14 @@ namespace KillerSudokuSolver.Helpers
 {
     public class Validator
     {
-        public static bool Completed(KillerSudoku killerSudoku)
+        public static Status GetStatus(KillerSudoku killerSudoku)
+        {
+            if (!StillValid(killerSudoku)) return Status.Invalid;
+            if (Completed(killerSudoku)) return Status.Completed;
+            return Status.Valid;
+        }
+
+        private static bool Completed(KillerSudoku killerSudoku)
         {
             for (var i = 0; i < killerSudoku.Board.board.Count - 1; i++)
             {
@@ -32,6 +39,34 @@ namespace KillerSudokuSolver.Helpers
             return true;
         }
 
+        private static bool StillValid(KillerSudoku killerSudoku)
+        {
+            List<Field> zeroPos = killerSudoku.Board.allFields()
+                    .Where(x => x.PossibleValues.Count == 0)
+                    .Where(x => x.Value == 0)
+                    .ToList();
 
+            int fieldwithzerovalues = killerSudoku.Board.allFields().Where(x => x.Value == 0).Count();
+            bool zeroPossibleValues = zeroPos.Count() == 0 || zeroPos.Count() == fieldwithzerovalues;
+
+            bool doubleValues = Helper.GetAllRowColKubes(killerSudoku)
+                .Where(box =>
+                {
+                    int res = box.Where(x => x.Value != 0)
+                        .GroupBy(x => x.Value)
+                        .Where(x => x.Count() > 1)
+                        .Count();
+                    return res != 0;
+                })
+                .Count() == 0;
+
+            bool cages = killerSudoku.Cages.Where(cage => cage.CombinedValue < cage.Fields
+                                .Select(x => x.Value)
+                                .Aggregate((a, b) => a + b))
+                                .ToList()
+                                .Count() == 0;
+
+            return zeroPossibleValues && doubleValues && cages;
+        }
     }
 }

@@ -14,7 +14,7 @@ namespace SudokuTestProject
             //easyKiller();
             //mediumKiller();
             //mediumKiller2();
-            //hardKiller();
+            hardKiller();
 
             //noCages();
             //noCagesMed();
@@ -22,7 +22,7 @@ namespace SudokuTestProject
 
             //noCagesHard2();
 
-            noCagesEvil();
+            //noCagesEvil();
 
             //test();
 
@@ -86,7 +86,7 @@ namespace SudokuTestProject
 
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-            Solver.Solve(killerSudoku);
+            Solver.Start(killerSudoku);
             stopwatch.Stop();
 
             Console.WriteLine(stopwatch.Elapsed);
@@ -134,7 +134,7 @@ namespace SudokuTestProject
 
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-            KillerSudoku killerSudoku1 = Solver.Solve(killerSudoku);
+            KillerSudoku killerSudoku1 = Solver.Start(killerSudoku);
             stopwatch.Stop();
 
             Console.WriteLine(stopwatch.Elapsed);
@@ -181,7 +181,7 @@ namespace SudokuTestProject
 
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-            KillerSudoku killerSudoku1 = Solver.Solve(killerSudoku);
+            KillerSudoku killerSudoku1 = Solver.Start(killerSudoku);
             killerSudoku.Board.Logger = new Logger(true);
             stopwatch.Stop();
 
@@ -225,7 +225,7 @@ namespace SudokuTestProject
 
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-            KillerSudoku killerSudoku1 = Solver.Solve(killerSudoku);
+            KillerSudoku killerSudoku1 = Solver.Start(killerSudoku);
             stopwatch.Stop();
 
             Console.WriteLine(stopwatch.Elapsed);
@@ -264,7 +264,7 @@ namespace SudokuTestProject
 
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-            KillerSudoku killerSudoku1 = Solver.Solve(killerSudoku);
+            KillerSudoku killerSudoku1 = Solver.Start(killerSudoku);
             stopwatch.Stop();
 
             Console.WriteLine(stopwatch.Elapsed);
@@ -316,7 +316,7 @@ namespace SudokuTestProject
 
             killerSudoku.Print();
 
-            Solver.Solve(killerSudoku);
+            Solver.Start(killerSudoku);
 
         }
 
@@ -366,7 +366,7 @@ namespace SudokuTestProject
 
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-            Solver.Solve(killerSudoku);
+            Solver.Start(killerSudoku);
             stopwatch.Stop();
 
             Console.WriteLine(stopwatch.Elapsed);
@@ -416,7 +416,7 @@ namespace SudokuTestProject
 
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-            Solver.Solve(killerSudoku);
+            Solver.Start(killerSudoku);
             stopwatch.Stop();
 
             Console.WriteLine(stopwatch.Elapsed);
@@ -467,7 +467,7 @@ namespace SudokuTestProject
 
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-            Solver.Solve(killerSudoku);
+            Solver.Start(killerSudoku);
             stopwatch.Stop();
 
             Console.WriteLine(stopwatch.Elapsed);
@@ -517,7 +517,7 @@ namespace SudokuTestProject
 
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-            Solver.Solve(killerSudoku);
+            Solver.Start(killerSudoku);
             stopwatch.Stop();
 
             Console.WriteLine(stopwatch.Elapsed);
@@ -540,14 +540,14 @@ namespace SudokuTestProject
 
             killerSudoku.Print();
 
-            Solver.Solve(killerSudoku);
+            Solver.Start(killerSudoku);
         }
 
         public static void test2()
         {
             KillerSudoku killerSudoku = new KillerSudoku(new List<Cage>(), new Board());
             killerSudoku.Print();
-            Solver.Solve(killerSudoku);
+            Solver.Start(killerSudoku);
         }
     }
 }

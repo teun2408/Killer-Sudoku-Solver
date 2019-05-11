@@ -13,7 +13,7 @@ namespace KillerSudokuSolver.Helpers
             int count = killerSudoku.Board.board.Count;
             SortedSet<int> result = new SortedSet<int>();
 
-            for(var i = 1; i < count; i++)
+            for(var i = 1; i <= count; i++)
             {
                 result.Add(i);
             }
@@ -27,13 +27,15 @@ namespace KillerSudokuSolver.Helpers
             Board board = killerSudoku.Board;
             board.board.ForEach(row => rowColKubes.Add(row));
 
-            for (var i = 0; i < board.board.Count - 1; i++) { rowColKubes.Add(board.getColumn(i)); };
+            for (var i = 0; i < board.board.Count; i++) { rowColKubes.Add(board.getColumn(i)); };
 
             int kubeCount = Convert.ToInt32(Math.Sqrt(board.board.Count));
 
-            for (var i = 0; i < board.board.Count - 1; i++)
+            for (var i = 0; i < board.board.Count; i++)
             {
-                rowColKubes.Add(board.getKube(killerSudoku, new Tuple<int, int>(i / kubeCount, i % kubeCount)));
+                Tuple<int, int> kubenumber = new Tuple<int, int>(i / kubeCount, i % kubeCount);
+
+                rowColKubes.Add(board.getKube(killerSudoku, kubenumber));
             };
 
             return rowColKubes;
@@ -54,34 +56,7 @@ namespace KillerSudokuSolver.Helpers
                 .ForEach(x => Console.Write(x));
         }
 
-        public static bool StillValid(KillerSudoku killerSudoku)
-        {
-            int zeroPos = ConcatBoard(killerSudoku.Board)
-                    .Where(x => x.PossibleValues.Count == 0)
-                    .Where(x => x.Value == 0)
-                    .Count();
 
-            bool zeroPossibleValues = zeroPos == 0 || zeroPos == ConcatBoard(killerSudoku.Board).Count;
-
-            bool doubleValues = GetAllRowColKubes(killerSudoku)
-                .Where(box =>
-                {
-                    int res = box.Where(x => x.Value != 0)
-                        .GroupBy(x => x.Value)
-                        .Where(x => x.Count() > 1)
-                        .Count();
-                    return res != 0;
-                })
-                .Count() == 0;
-
-            bool cages = killerSudoku.Cages.Where(cage => cage.CombinedValue < cage.Fields
-                                .Select(x => x.Value)
-                                .Aggregate((a, b) => a + b))
-                                .ToList()
-                                .Count() == 0;
-
-            return zeroPossibleValues && doubleValues && cages;
-        }
 
         public static List<Tuple<int, int>> ToTupleList(List<Field> fields)
         {

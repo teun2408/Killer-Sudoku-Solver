@@ -21,11 +21,19 @@ namespace KillerSudokuSolver.Models
             this.Fields = new List<Field>();
         }
 
-        public Cage completedCage()
+        public Cage CompletedCage()
         {
-            Cage newCage = new Cage(new List<Tuple<int, int>>(), 0);
-            newCage.Fields = Fields.Where(x => x.Value == 0).ToList();
-            newCage.CombinedValue = Fields.Select(x => x.Value).Aggregate((res, item) => res + item);
+            List<Field> uncompletedFields = Fields.Where(x => x.Value == 0).ToList();
+            if(uncompletedFields.Count == 0)
+            {
+                return new Cage(new List<Tuple<int, int>>(), 0);
+            }
+
+            Cage newCage = new Cage(new List<Tuple<int, int>>(), 0)
+            {
+                Fields = uncompletedFields,
+                CombinedValue = this.CombinedValue - Fields.Select(x => x.Value).Aggregate((res, item) => res + item)
+            };
             return newCage;
         }
     }

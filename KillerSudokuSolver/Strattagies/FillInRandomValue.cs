@@ -14,6 +14,7 @@ namespace KillerSudokuSolver.Strattagies
             killerSudoku.Board.Logger.Log("Couldn't get further, entering random value", true);
             killerSudoku.Board.Print();
             killerSudoku.randomCount++;
+            bool res = false;
 
             Field field = killerSudoku.Board
                 .allUncompletedFields()
@@ -24,7 +25,7 @@ namespace KillerSudokuSolver.Strattagies
                 .ToList()
                 .ForEach(val =>
                 {
-                    if (!Validator.Completed(killerSudoku))
+                    if (Validator.GetStatus(killerSudoku) == Status.Valid)
                     {
                         KillerSudoku possibility = killerSudoku.Clone();
                         Field randomField = possibility.GetField(field.Coordinates);
@@ -34,14 +35,15 @@ namespace KillerSudokuSolver.Strattagies
 
                         KillerSudoku result = Solver.Solve(possibility);
 
-                        if (Validator.Completed(result))
+                        if (Validator.GetStatus(result) == Status.Completed)
                         {
                             killerSudoku = result;
+                            res = true;
                         }
                     }
                 });
 
-            return new Tuple<KillerSudoku, bool>(killerSudoku, Validator.Completed(killerSudoku));
+            return new Tuple<KillerSudoku, bool>(killerSudoku, res);
         }
     }
 }

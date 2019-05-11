@@ -10,17 +10,32 @@ namespace KillerSudokuSolver
 {
     public class Solver
     {
+        public static KillerSudoku Start(KillerSudoku killerSudoku)
+        {
+            killerSudoku.Board.allFields()
+                .ForEach(field =>
+                {
+                    field.PossibleValues = Helper.PossibleValues(killerSudoku);
+                });
+
+            return Solve(killerSudoku);
+        }
+
         public static KillerSudoku Solve(KillerSudoku killerSudoku)
         {
             killerSudoku.Board.Logger.Log("---------------New run------------------", true);
             killerSudoku.Board.Print();
 
-            if (Validator.Completed(killerSudoku))
+            switch(Validator.GetStatus(killerSudoku))
             {
-                killerSudoku.Board.Logger.Log("Completed the sudoku", true);
-                Console.WriteLine($"entered {killerSudoku.randomCount} random values");
-                killerSudoku.Board.Print();
-                return killerSudoku;
+                case Status.Completed:
+                    killerSudoku.Board.Logger.Log("Completed the sudoku", true);
+                    killerSudoku.Board.Logger.Log($"entered {killerSudoku.randomCount} random values", true);
+                    killerSudoku.Board.Print();
+                    return killerSudoku;
+                case Status.Invalid:
+                    killerSudoku.Board.Logger.Log("Invalid Sudoku", true);
+                    return killerSudoku;
             }
 
             List<IStrattagy> stratagies = new List<IStrattagy>
@@ -28,24 +43,14 @@ namespace KillerSudokuSolver
                 new CalculatePossibleValues(),
                 new FindTemporaryCages(),
                 new CalculatePossibleValuesCages(),
-                //new BoxLineReduction(),
-                //new PointingPairs()
+                new BoxLineReduction(),
+                new PointingPairs()
             };
+
             stratagies.ForEach(strat => 
             {
                 strat.Execute(killerSudoku);
-                if (!Helper.StillValid(killerSudoku))
-                {
-                    killerSudoku.Board.Logger.Log("Invalid Sudoku", true);
-                }
-
             });
-
-            if (!Helper.StillValid(killerSudoku))
-            {
-                killerSudoku.Board.Logger.Log("Invalid Sudoku", true);
-                return killerSudoku;
-            }
 
             bool filledinSingle = new FillInSinglePossibilityOfRow().Execute(killerSudoku).Item2;
             if (new FillInSinglePossibleValues().Execute(killerSudoku).Item2 || filledinSingle)
@@ -57,16 +62,10 @@ namespace KillerSudokuSolver
             {
                 //Fill in random value
                 killerSudoku.Board.Logger.Log("before random", true);
-
                 killerSudoku.Board.Print();
-
-                List<Cage> sf = killerSudoku.CombinedCages
-                    .Where(x => x.Fields.Contains(killerSudoku.GetField(new Tuple<int, int>(3, 2))))
-                    .ToList();
-
                 KillerSudoku randomkiller = new FillInRandomValue().Execute(killerSudoku).Item1;
 
-                if(Validator.Completed(randomkiller))
+                if(Validator.GetStatus(randomkiller) == Status.Completed)
                 {
                     return randomkiller;
                 }
