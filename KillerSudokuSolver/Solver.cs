@@ -1,6 +1,7 @@
 ﻿using KillerSudokuSolver.Helpers;
 using KillerSudokuSolver.Models;
 using KillerSudokuSolver.Strattagies;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,10 @@ namespace KillerSudokuSolver
             killerSudoku.Board.allFields()
                 .ForEach(field =>
                 {
-                    field.PossibleValues = Helper.PossibleValues(killerSudoku);
+                    if(field.Value == 0)
+                    {
+                        field.PossibleValues = Helper.PossibleValues(killerSudoku);
+                    }
                 });
 
             return Solve(killerSudoku);
@@ -44,18 +48,15 @@ namespace KillerSudokuSolver
                 new FindTemporaryCages(),
                 new CalculatePossibleValuesCages(),
                 new BoxLineReduction(),
-                new PointingPairs()
+                new PointingPairs(),
+                new FillInSinglePossibilityOfRow(),
+                new FillInSinglePossibleValues()
             };
 
-            stratagies.ForEach(strat => 
-            {
-                strat.Execute(killerSudoku);
-            });
+            int count = stratagies.Where(strat => strat.Execute(killerSudoku).Item2 == true).Count();
 
-            bool filledinSingle = new FillInSinglePossibilityOfRow().Execute(killerSudoku).Item2;
-            if (new FillInSinglePossibleValues().Execute(killerSudoku).Item2 || filledinSingle)
+            if (count > 0)
             {
-                //Next round
                 return Solve(killerSudoku);
             }
             else

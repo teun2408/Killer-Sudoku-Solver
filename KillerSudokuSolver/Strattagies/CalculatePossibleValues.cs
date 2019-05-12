@@ -15,8 +15,6 @@ namespace KillerSudokuSolver.Strattagies
             {
                 if (col.Value == 0)
                 {
-                    //Add col.PossibleValues
-                    if (col.PossibleValues.Count == 0) col.PossibleValues = Helper.PossibleValues(killerSudoku);
                     col.PossibleValues = ValidValueCombiner.ValidValues(killerSudoku, board.getColumn(col.Coordinates.Item1), col.PossibleValues);
                     col.PossibleValues = ValidValueCombiner.ValidValues(killerSudoku, board.getRow(col.Coordinates.Item2), col.PossibleValues);
                     col.PossibleValues = ValidValueCombiner.ValidValues(killerSudoku,

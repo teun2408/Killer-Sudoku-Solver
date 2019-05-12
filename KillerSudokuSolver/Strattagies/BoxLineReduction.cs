@@ -13,7 +13,8 @@ namespace KillerSudokuSolver.Strattagies
         {
             if (RunStrattagy(killerSudoku))
             {
-                return (Execute(killerSudoku));
+                Execute(killerSudoku);
+                return (new Tuple<KillerSudoku, bool>(killerSudoku, true));
             }
 
             return (new Tuple<KillerSudoku, bool>(killerSudoku, false));

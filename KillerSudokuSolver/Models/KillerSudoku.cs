@@ -16,8 +16,11 @@ namespace KillerSudokuSolver.Models
 
         public List<Cage> CombinedCages => Cages.Concat(TempooraryCages).ToList();
 
-        public KillerSudoku(List<Cage> cages, Board board)
+        public string Name { get; set; }
+
+        public KillerSudoku(List<Cage> cages, Board board, string name)
         {
+            this.Name = name;
             this.Board = board;
             this.Cages = cages;
             this.TempooraryCages = new List<Cage>();

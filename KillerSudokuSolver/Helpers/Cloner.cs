@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
@@ -19,7 +20,9 @@ namespace KillerSudokuSolver.Helpers
                 List<Field> newRow = new List<Field>();
                 source.Board.board[i].ForEach(field =>
                 {
-                    newRow.Add(new Field(field.Coordinates, field.Value));
+                    Field newField = new Field(field.Coordinates, field.Value);
+                    field.PossibleValues.ToList().ForEach(x => newField.PossibleValues.Add(x));
+                    newRow.Add(newField);
                 });
                 cloneBoard.board[i] = newRow;
             }
@@ -28,7 +31,7 @@ namespace KillerSudokuSolver.Helpers
             {
                 clonedCages.Add(new Cage(cage.Coordinates, cage.CombinedValue));
             });
-            return new KillerSudoku(clonedCages, cloneBoard) { randomCount = source.randomCount };
+            return new KillerSudoku(clonedCages, cloneBoard, source.Name) { randomCount = source.randomCount };
         }
     }
 }

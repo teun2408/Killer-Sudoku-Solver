@@ -7,7 +7,7 @@ using System.Text;
 
 namespace KillerSudokuSolver.Strattagies
 {
-    public class FindTemporaryCages : IStrattagy
+    public class FindTemporaryCages: IStrattagy
     {
         public Tuple<KillerSudoku, bool> Execute(KillerSudoku killerSudoku)
         {
@@ -51,7 +51,7 @@ namespace KillerSudokuSolver.Strattagies
                 }
             });
 
-            return new Tuple<KillerSudoku, bool>(killerSudoku, true);
+            return new Tuple<KillerSudoku, bool>(killerSudoku, false);
         }
     }
 }
