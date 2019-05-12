@@ -24,6 +24,8 @@ namespace KillerSudokuSolver.Models
 
         public SortedSet<int> PossibleValues { get; set; }
 
+        public List<SortedSet<int>> PossibleCageCombinations { get; set; }
+
         public Field(Tuple<int, int> coordinates, int value = 0)
         {
             this.Coordinates = coordinates;

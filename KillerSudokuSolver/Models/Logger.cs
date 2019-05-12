@@ -26,11 +26,26 @@ namespace KillerSudokuSolver.Models
         {
             if (log)
             {
-                board.board.ForEach(row =>
+                if(board.board.Count > 9)
                 {
-                    row.ForEach(field => Console.Write(field.Value + " "));
-                    Console.WriteLine("");
-                });
+                    board.board.ForEach(row =>
+                    {
+                        row.ForEach(field => 
+                        {
+                            if (field.Value < 10) Console.Write(field.Value + "  ");
+                            else Console.Write(field.Value + " ");
+                        });
+                        Console.WriteLine("");
+                    });
+                }
+                else
+                {
+                    board.board.ForEach(row =>
+                    {
+                        row.ForEach(field => Console.Write(field.Value + " "));
+                        Console.WriteLine("");
+                    });
+                }
             }
         }
 
@@ -40,8 +55,7 @@ namespace KillerSudokuSolver.Models
             {
                 board.board.ForEach(row =>
                 {
-                    row.ForEach(field => Console.Write(field.Cage?.CombinedValue == null ? 0.ToString() + "   " : field.Cage.CombinedValue >= 10 ? field.Cage.CombinedValue + "  " : field.Cage.CombinedValue + "   "));
-                    Console.WriteLine("");
+                    row.ForEach(field => Console.Write(field.Cage?.CombinedValue == null ? 0.ToString() + "  " : field.Cage.CombinedValue >= 10 ? field.Cage.CombinedValue + " " : field.Cage.CombinedValue + "   "));
                     Console.WriteLine("");
                 });
             }

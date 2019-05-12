@@ -53,28 +53,12 @@ namespace KillerSudokuSolver
                 new FillInSinglePossibleValues()
             };
 
-            int count = stratagies.Where(strat => strat.Execute(killerSudoku).Item2 == true).Count();
-
-            if (count > 0)
+            if (stratagies.Where(strat => strat.Execute(killerSudoku).Item2).Count() == 0)
             {
-                return Solve(killerSudoku);
+                return new FillInRandomValue().Execute(killerSudoku).Item1;
             }
-            else
-            {
-                //Fill in random value
-                killerSudoku.Board.Logger.Log("before random", true);
-                killerSudoku.Board.Print();
-                KillerSudoku randomkiller = new FillInRandomValue().Execute(killerSudoku).Item1;
 
-                if(Validator.GetStatus(randomkiller) == Status.Completed)
-                {
-                    return randomkiller;
-                }
-                else
-                {
-                    return killerSudoku;
-                }
-            }
+            return Solve(killerSudoku);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace KillerSudokuSolver.Helpers
     {
         public static KillerSudoku Clone(this KillerSudoku source)
         {
-            Board cloneBoard = new Board(null, source.Board.Logger);
+            Board cloneBoard = new Board(null, source.Board.Logger, source.Board.board.Count);
             List<Cage> clonedCages = new List<Cage>();
             for (int i = 0; i < source.Board.board.Count; i++)
             {

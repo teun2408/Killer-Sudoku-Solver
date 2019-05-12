@@ -2,6 +2,7 @@
 using KillerSudokuSolver.Models;
 using SudokuTestProject.Sudokus;
 using SudokuTestProject.Sudokus.Killer;
+using SudokuTestProject.Sudokus.Large;
 using SudokuTestProject.Sudokus.Normal;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,9 @@ namespace SudokuTestProject
                 new MediumNormal(),
                 new HardNormal(),
                 new Hard2Normal(),
-                new EvilNormal()
+                new EvilNormal(),
+                new Large16x16Normal(),
+                new Large16x16Medium()
             };
 
             sudokus.ForEach(sudoku =>

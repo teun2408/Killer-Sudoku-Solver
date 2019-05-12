@@ -11,16 +11,16 @@ namespace KillerSudokuSolver.Models
     {
         public List<List<Field>> board { get; }
 
-        public Board(List<Field> fields = null, Logger logger = null)
+        public Board(List<Field> fields = null, Logger logger = null, int size = 9)
         {
             this.Logger = logger;
             if (this.Logger == null) this.Logger = new Logger();
-            board = new List<List<Field>>(9);
-            for (var y = 0; y < 9; y++)
+            board = new List<List<Field>>(size);
+            for (var y = 0; y < size; y++)
             {
-                board.Add(new List<Field>(9));
+                board.Add(new List<Field>(size));
                 List<Field> row = board[y];
-                for (var x = 0; x < 9; x++)
+                for (var x = 0; x < size; x++)
                 {
                     row.Add(new Field(new Tuple<int, int>(x, y)));
                 }

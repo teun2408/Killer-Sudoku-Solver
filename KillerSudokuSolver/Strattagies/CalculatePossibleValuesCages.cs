@@ -11,6 +11,9 @@ namespace KillerSudokuSolver.Strattagies
     {
         public Tuple<KillerSudoku, bool> Execute(KillerSudoku killerSudoku)
         {
+            killerSudoku.Board.allFields()
+                .ForEach(field => field.PossibleCageCombinations = new List<SortedSet<int>>());
+
             killerSudoku.CombinedCages.ForEach(cage =>
             {
                 Cage completedCage = cage.CompletedCage();
@@ -22,7 +25,37 @@ namespace KillerSudokuSolver.Strattagies
                     .ToList()
                     .ForEach(x => fieldPossibilities.Add(x));
 
-                List<SortedSet<int>> cagePosibilities = CageCombinationFinder.CagePossibilities(combinedTemporary, emtpyTiles, fieldPossibilities);
+                SortedSet<int> cageRequiredValues = new SortedSet<int>();
+
+                cage.Fields.ForEach(field =>
+                {
+                    Helper.GetAllRowColKubes(killerSudoku)
+                          .Where(x => x.Contains(field))
+                          .ToList()
+                          .ForEach(rowcolkube =>
+                          {
+                              List<Field> temprowColKube = new List<Field>();
+                              rowcolkube.ForEach(field => temprowColKube.Add(field));
+
+                              List<int> values = Helper.PossibleValues(killerSudoku)
+                                  .Where(x => !temprowColKube.Any(y => y.Value == x))
+                                  .ToList();
+                              cage.Fields.ForEach(field => temprowColKube.Remove(field));
+
+                              List<int> allpos = temprowColKube.SelectMany(field => field.PossibleValues)
+                                                              .ToList();
+
+                              values
+                                  .Where(val => !allpos.Contains(val))
+                                  .ToList()
+                                  .ForEach(x => cageRequiredValues.Add(x));
+                          });
+                });
+
+                List<SortedSet<int>> cagePosibilities = CageCombinationFinder.CagePossibilities(combinedTemporary, emtpyTiles, fieldPossibilities, killerSudoku);
+                cagePosibilities = cagePosibilities
+                    .Where(pos => cageRequiredValues.All(x => pos.Contains(x)))
+                    .ToList();
                 SortedSet<int> res = new SortedSet<int>();
                 cagePosibilities.ForEach(x => x.ToList().ForEach(y => res.Add(y)));
 
