@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace KillerSudokuSolver.Strattagies
+namespace KillerSudokuSolver.Stratagies
 {
-    public class FindTemporaryCages: IStrattagy
+    public class FindTemporaryCages: IStratagy
     {
         public Tuple<KillerSudoku, bool> Execute(KillerSudoku killerSudoku)
         {

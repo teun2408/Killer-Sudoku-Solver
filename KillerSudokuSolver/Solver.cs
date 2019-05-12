@@ -1,6 +1,6 @@
 ﻿using KillerSudokuSolver.Helpers;
 using KillerSudokuSolver.Models;
-using KillerSudokuSolver.Strattagies;
+using KillerSudokuSolver.Stratagies;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -42,15 +42,16 @@ namespace KillerSudokuSolver
                     return killerSudoku;
             }
 
-            List<IStrattagy> stratagies = new List<IStrattagy>
+            List<IStratagy> stratagies = new List<IStratagy>
             {
                 new CalculatePossibleValues(),
                 new FindTemporaryCages(),
                 new CalculatePossibleValuesCages(),
                 new BoxLineReduction(),
+                new CageUnitOverlap(),
                 new PointingPairs(),
                 new FillInSinglePossibilityOfRow(),
-                new FillInSinglePossibleValues()
+                new FillInSinglePossibleValues(),
             };
 
             if (stratagies.Where(strat => strat.Execute(killerSudoku).Item2).Count() == 0)

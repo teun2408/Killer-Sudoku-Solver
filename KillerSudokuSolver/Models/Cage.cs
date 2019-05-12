@@ -21,6 +21,8 @@ namespace KillerSudokuSolver.Models
             this.Fields = new List<Field>();
         }
 
+        public List<SortedSet<int>> CagePossibilities { get; set; }
+
         public Cage CompletedCage()
         {
             List<Field> uncompletedFields = Fields.Where(x => x.Value == 0).ToList();

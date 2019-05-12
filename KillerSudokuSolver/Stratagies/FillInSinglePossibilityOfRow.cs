@@ -5,9 +5,9 @@ using System.Text;
 using KillerSudokuSolver.Helpers;
 using KillerSudokuSolver.Models;
 
-namespace KillerSudokuSolver.Strattagies
+namespace KillerSudokuSolver.Stratagies
 {
-    public class FillInSinglePossibilityOfRow : IStrattagy
+    public class FillInSinglePossibilityOfRow : IStratagy
     {
         public Tuple<KillerSudoku, bool> Execute(KillerSudoku killerSudoku)
         {
@@ -30,7 +30,7 @@ namespace KillerSudokuSolver.Strattagies
                             if (field.Value == 0)
                             {
                                 field.Value = val;
-                                board.Logger.Log($"Filled in {field.Coordinates} with {field.Value} because it's the only field in the row that can have this value", true);
+                                board.Logger.Log($"Filled in {field.Coordinates} with {field.Value} because it's the only field in the {Helper.GetRowType(row)} that can have this value", true);
                                 res = true;
                             }
                         });

@@ -70,5 +70,13 @@ namespace KillerSudokuSolver.Helpers
             return PossibleValues(killerSudoku)
                 .Aggregate((a, b) => a + b);
         }
+
+        public static string GetRowType(List<Field> row)
+        {
+            Field basicField = row.FirstOrDefault();
+            if (row.All(field => basicField.Coordinates.Item1 == field.Coordinates.Item1)) return "column";
+            if (row.All(field => basicField.Coordinates.Item2 == field.Coordinates.Item2)) return "row";
+            else return "kube";
+        }
     }
 }

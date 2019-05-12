@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using KillerSudokuSolver.Models;
 
-namespace KillerSudokuSolver.Strattagies
+namespace KillerSudokuSolver.Stratagies
 {
-    public class FillInSinglePossibleValues : IStrattagy
+    public class FillInSinglePossibleValues : IStratagy
     {
         public Tuple<KillerSudoku, bool> Execute(KillerSudoku killerSudoku)
         {

@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace KillerSudokuSolver.Strattagies
+namespace KillerSudokuSolver.Stratagies
 {
-    public class BoxLineReduction : IStrattagy
+    public class BoxLineReduction : IStratagy
     {
         public Tuple<KillerSudoku, bool> Execute(KillerSudoku killerSudoku)
         {

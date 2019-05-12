@@ -5,9 +5,9 @@ using System.Text;
 using KillerSudokuSolver.Helpers;
 using KillerSudokuSolver.Models;
 
-namespace KillerSudokuSolver.Strattagies
+namespace KillerSudokuSolver.Stratagies
 {
-    public class FillInRandomValue : IStrattagy
+    public class FillInRandomValue : IStratagy
     {
         public Tuple<KillerSudoku, bool> Execute(KillerSudoku killerSudoku)
         {

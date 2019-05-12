@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace KillerSudokuSolver.Strattagies
+namespace KillerSudokuSolver.Stratagies
 {
-    public interface IStrattagy
+    public interface IStratagy
     {
         Tuple<KillerSudoku, bool> Execute(KillerSudoku killerSudoku);
     }
