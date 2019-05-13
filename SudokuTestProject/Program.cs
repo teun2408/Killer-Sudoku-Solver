@@ -26,9 +26,9 @@ namespace SudokuTestProject
                 new HardNormal(),
                 new Hard2Normal(),
                 new EvilNormal(),
-                new Large16x16Normal(),
-                //new Large16x16Medium(),
-                //new Large25x25Easy()
+                new Large16x16Medium(),
+                new Large16x16Hard(),
+                new Large25x25Easy()
             };
 
             sudokus.ForEach(sudoku =>
@@ -41,7 +41,14 @@ namespace SudokuTestProject
                 killerSudoku = Solver.Start(killerSudoku);
                 stopwatch.Stop();
 
-                Console.WriteLine($"Completed the sudoku {killerSudoku.Name} in {stopwatch.Elapsed} with {killerSudoku.randomCount} random values");
+                if(KillerSudokuSolver.Helpers.Validator.GetStatus(killerSudoku) == KillerSudokuSolver.Helpers.Status.Completed)
+                {
+                    Console.WriteLine($"Completed the sudoku {killerSudoku.Name} in {stopwatch.Elapsed} with {killerSudoku.randomCount} random values");
+                }
+                else
+                {
+                    Console.WriteLine($"Failed to complete the sudoku {killerSudoku.Name} in {stopwatch.Elapsed} with {killerSudoku.randomCount} random values");
+                }
             });
         }
     }

@@ -39,8 +39,15 @@ namespace KillerSudokuSolver.Stratagies
                                   .Where(val => !allpos.Contains(val))
                                   .ToList()
                                   .ForEach(x => cageRequiredValues.Add(x));
+
+                              //temprowColKube.ForEach(field => values.ForEach(val => field.PossibleValues.Remove(val)));
                           });
                 });
+
+                if(cageRequiredValues.Count > 0)
+                {
+                    Console.Write("");
+                }
 
                 cage.CagePossibilities = cage.CagePossibilities
                     .Where(pos => cageRequiredValues.All(x => pos.Contains(x)))

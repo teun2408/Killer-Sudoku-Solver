@@ -11,6 +11,7 @@ namespace KillerSudokuSolver.Stratagies
     {
         public Tuple<KillerSudoku, bool> Execute(KillerSudoku killerSudoku)
         {
+            int cageCount = killerSudoku.TempooraryCages.Count;
             killerSudoku.TempooraryCages = new List<Cage>();
 
             List<List<Field>> rowColKubes = Helper.GetAllRowColKubes(killerSudoku);
@@ -50,6 +51,10 @@ namespace KillerSudokuSolver.Stratagies
                     killerSudoku.TempooraryCages.Add(temporaryCage);
                 }
             });
+            if(killerSudoku.TempooraryCages.Count != cageCount)
+            {
+                return new Tuple<KillerSudoku, bool>(killerSudoku, true);
+            }
 
             return new Tuple<KillerSudoku, bool>(killerSudoku, false);
         }

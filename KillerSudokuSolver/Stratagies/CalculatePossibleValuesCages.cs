@@ -11,6 +11,7 @@ namespace KillerSudokuSolver.Stratagies
     {
         public Tuple<KillerSudoku, bool> Execute(KillerSudoku killerSudoku)
         {
+            bool result = false;
             killerSudoku.Cages.ForEach(cage => cage.CagePossibilities = new List<SortedSet<int>>());
 
             killerSudoku.CombinedCages.ForEach(cage =>
@@ -36,11 +37,15 @@ namespace KillerSudokuSolver.Stratagies
                     .ForEach(field =>
                     {
                         SortedSet<int> validValues = ValidValueCombiner.KeepJoinedPossibilities(field.PossibleValues, res);
+                        if(validValues.Count != field.PossibleValues.Count)
+                        {
+                            result = true;
+                        }
                         field.PossibleValues = validValues;
                     });
             });
 
-            return new Tuple<KillerSudoku, bool>(killerSudoku, false);
+            return new Tuple<KillerSudoku, bool>(killerSudoku, result);
         }
     }
 }

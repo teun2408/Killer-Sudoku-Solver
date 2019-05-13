@@ -55,7 +55,7 @@ namespace KillerSudokuSolver.Models
             {
                 board.board.ForEach(row =>
                 {
-                    row.ForEach(field => Console.Write(field.Cage?.CombinedValue == null ? 0.ToString() + "  " : field.Cage.CombinedValue >= 10 ? field.Cage.CombinedValue + " " : field.Cage.CombinedValue + "   "));
+                    row.ForEach(field => Console.Write(field.Cage?.CombinedValue == null ? 0.ToString() + "  " : field.Cage.CombinedValue >= 10 ? field.Cage.CombinedValue + " " : field.Cage.CombinedValue + "  "));
                     Console.WriteLine("");
                 });
             }

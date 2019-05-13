@@ -47,9 +47,11 @@ namespace KillerSudokuSolver
                 new CalculatePossibleValues(),
                 new FindTemporaryCages(),
                 new CalculatePossibleValuesCages(),
+                new HiddenPairs(),
+                new XWing(),
+                new PointingPairs(),
                 new BoxLineReduction(),
                 new CageUnitOverlap(),
-                new PointingPairs(),
                 new FillInSinglePossibilityOfRow(),
                 new FillInSinglePossibleValues(),
             };
