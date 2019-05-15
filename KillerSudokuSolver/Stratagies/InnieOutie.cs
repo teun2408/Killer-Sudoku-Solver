@@ -7,7 +7,7 @@ using KillerSudokuSolver.Models;
 
 namespace KillerSudokuSolver.Stratagies
 {
-    public class InnieOutie2 : IStratagy
+    public class InnieOutie : IStratagy
     {
         public Tuple<KillerSudoku, bool> Execute(KillerSudoku killerSudoku)
         {
@@ -40,7 +40,10 @@ namespace KillerSudokuSolver.Stratagies
                 3,
                 4,
                 5,
-                6
+                6,
+                7,
+                8,
+                9
             };
 
             InieOutieMaxSize.ForEach(size =>
@@ -61,7 +64,7 @@ namespace KillerSudokuSolver.Stratagies
                         .Select(x => x.Cage)
                         .Distinct()
                         .Where(x => x != null)
-                        .Where(cage => cage.Fields.All(field => combinedRows.Contains(field)))
+                        .Where(cage => cage.CompletedCage().Fields.All(field => combinedRows.Contains(field)))
                         .SelectMany(cage =>
                         {
                             totalValue -= cage.CombinedValue;
@@ -70,6 +73,10 @@ namespace KillerSudokuSolver.Stratagies
                         .ToList()
                         .ForEach(field =>
                         {
+                            if(!combinedRows.Contains(field))
+                            {
+                                totalValue += field.Value;
+                            }
                             temporaryCageList.Remove(field);
                         });
 

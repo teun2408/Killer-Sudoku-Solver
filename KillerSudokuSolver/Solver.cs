@@ -48,7 +48,7 @@ namespace KillerSudokuSolver
                 new CalculatePossibleValues(),
                 new FindTemporaryCages(),
                 new CageSplitting(),
-                new InnieOutie2(),
+                new InnieOutie(),
                 new CalculatePossibleValuesCages(),
                 new CageCombinations(),
                 new HiddenPairs(),

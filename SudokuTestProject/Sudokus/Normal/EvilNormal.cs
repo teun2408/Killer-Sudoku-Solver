@@ -22,6 +22,7 @@ namespace SudokuTestProject.Sudokus.Normal
             prefilledFields.Add(new Field(new Tuple<int, int>(2, 4), 6));
             prefilledFields.Add(new Field(new Tuple<int, int>(2, 6), 9));
 
+            prefilledFields.Add(new Field(new Tuple<int, int>(3, 3), 2));
             prefilledFields.Add(new Field(new Tuple<int, int>(3, 4), 5));
             prefilledFields.Add(new Field(new Tuple<int, int>(3, 5), 8));
 

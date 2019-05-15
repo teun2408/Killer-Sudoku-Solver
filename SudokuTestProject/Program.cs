@@ -20,6 +20,7 @@ namespace SudokuTestProject
                 new MediumKiller(),
                 new HardKiller(),
                 new EvilKiller(),
+                new EvilKiller2(),
                 new EasyNormal(),
                 new Easy2Normal(),
                 new MediumNormal(),
@@ -27,8 +28,8 @@ namespace SudokuTestProject
                 new Hard2Normal(),
                 new EvilNormal(),
                 new Large16x16Medium(),
-                //new Large16x16Hard(),
-                //new Large25x25Easy()
+                new Large16x16Hard(),
+                new Large25x25Easy()
             };
 
             sudokus.ForEach(sudoku =>
