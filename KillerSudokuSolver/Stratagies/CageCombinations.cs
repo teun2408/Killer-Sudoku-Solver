@@ -7,43 +7,16 @@ using KillerSudokuSolver.Models;
 
 namespace KillerSudokuSolver.Stratagies
 {
-    public class CalculatePossibleValuesCages : IStratagy
+    public class CageCombinations: IStratagy
     {
         public Tuple<KillerSudoku, bool> Execute(KillerSudoku killerSudoku)
         {
             bool result = false;
-            killerSudoku.Cages.ForEach(cage => cage.CagePossibilities = new List<SortedSet<int>>());
-
             killerSudoku.CombinedCages.ForEach(cage =>
             {
-                Cage completedCage = cage.CompletedCage();
-                int combinedTemporary = completedCage.CombinedValue;
-                int emtpyTiles = completedCage.Fields.Count;
-
-                SortedSet<int> fieldPossibilities = new SortedSet<int>();
-                cage.Fields.SelectMany(x => x.PossibleValues)
-                    .ToList()
-                    .ForEach(x => fieldPossibilities.Add(x));
-
-                List<int> valInCages = cage.Fields.Select(field => field.Value)
-                                        .Where(val => val != 0)
-                                        .ToList();
-
-
-                List<SortedSet<int>> cagePosibilities = CageCombinationFinder.CagePossibilities(combinedTemporary, emtpyTiles, fieldPossibilities, killerSudoku);
-
-
-                //Remove possibilities with a value already in the cage
-                cagePosibilities = cagePosibilities
-                            .Where(possibility => possibility
-                                     .ToList()
-                                     .Any(val => !valInCages.Contains(val))
-                                  )
-                            .ToList();
-
                 SortedSet<int> res = new SortedSet<int>();
-                cagePosibilities.ForEach(x => x.ToList().ForEach(y => res.Add(y)));
-                cage.CagePossibilities = cagePosibilities;
+                cage.CagePossibilities.ForEach(x => x.ToList().ForEach(y => res.Add(y)));
+                cage.CagePossibilities = RemoveInvalidPossibilities(cage.CagePossibilities, cage);
 
                 cage.Fields
                     .Where(x => x.Value == 0)
@@ -51,14 +24,13 @@ namespace KillerSudokuSolver.Stratagies
                     .ForEach(field =>
                     {
                         SortedSet<int> validValues = ValidValueCombiner.KeepJoinedPossibilities(field.PossibleValues, res);
-                        if(validValues.Count != field.PossibleValues.Count)
+                        if (validValues.Count != field.PossibleValues.Count)
                         {
                             result = true;
                         }
                         field.PossibleValues = validValues;
                     });
             });
-
             return new Tuple<KillerSudoku, bool>(killerSudoku, result);
         }
 

@@ -13,6 +13,8 @@ namespace KillerSudokuSolver.Models
 
         public List<Cage> TemporaryCages { get; set; }
 
+        public List<Cage> InnieOutieCages { get; set; }
+
         public int Value { get; set; }
 
         public Tuple<int, int> Kube(int size)
@@ -30,6 +32,7 @@ namespace KillerSudokuSolver.Models
             this.Value = value;
             this.PossibleValues = new SortedSet<int>();
             this.TemporaryCages = new List<Cage>();
+            this.InnieOutieCages = new List<Cage>();
         }
 
         public override string ToString()

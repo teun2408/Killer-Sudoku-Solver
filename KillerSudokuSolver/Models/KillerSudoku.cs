@@ -14,7 +14,11 @@ namespace KillerSudokuSolver.Models
 
         public List<Cage> TempooraryCages { get; set; }
 
-        public List<Cage> CombinedCages => Cages.Concat(TempooraryCages).ToList();
+        public List<Cage> InnieOutieCages { get; set; }
+
+        public List<Cage> SplittedCages { get; set; }
+
+        public List<Cage> CombinedCages => Cages.Concat(TempooraryCages).Concat(SplittedCages).ToList().Concat(InnieOutieCages).ToList();
 
         public string Name { get; set; }
 
@@ -24,6 +28,8 @@ namespace KillerSudokuSolver.Models
             this.Board = board;
             this.Cages = cages;
             this.TempooraryCages = new List<Cage>();
+            this.SplittedCages = new List<Cage>();
+            this.InnieOutieCages = new List<Cage>();
             this.Cages.ForEach(cage => 
             {
                 cage.Coordinates.ForEach(cor => { cage.Fields.Add(GetField(cor)); GetField(cor).Cage = cage; } );

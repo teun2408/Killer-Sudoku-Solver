@@ -41,6 +41,31 @@ namespace KillerSudokuSolver.Helpers
             return rowColKubes;
         }
 
+        public static List<List<Field>> GetAllColumns(KillerSudoku killerSudoku)
+        {
+            List<List<Field>> rowColKubes = new List<List<Field>>();
+            Board board = killerSudoku.Board;
+
+            for (var i = 0; i < board.board.Count; i++) { rowColKubes.Add(board.getColumn(i)); };
+            return rowColKubes;
+        }
+
+        public static List<List<Field>> GetAllKubes(KillerSudoku killerSudoku)
+        {
+            List<List<Field>> rowColKubes = new List<List<Field>>();
+            Board board = killerSudoku.Board;
+
+            int kubeCount = Convert.ToInt32(Math.Sqrt(board.board.Count));
+
+            for (var i = 0; i < board.board.Count; i++)
+            {
+                Tuple<int, int> kubenumber = new Tuple<int, int>(i / kubeCount, i % kubeCount);
+
+                rowColKubes.Add(board.getKube(killerSudoku, kubenumber));
+            };
+            return rowColKubes;
+        }
+
         public static List<Field> ConcatBoard(Board board)
         {
             List<Field> fields = new List<Field>();

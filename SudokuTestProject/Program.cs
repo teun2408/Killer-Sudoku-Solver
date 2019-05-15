@@ -27,8 +27,8 @@ namespace SudokuTestProject
                 new Hard2Normal(),
                 new EvilNormal(),
                 new Large16x16Medium(),
-                new Large16x16Hard(),
-                new Large25x25Easy()
+                //new Large16x16Hard(),
+                //new Large25x25Easy()
             };
 
             sudokus.ForEach(sudoku =>
@@ -43,7 +43,7 @@ namespace SudokuTestProject
 
                 if(KillerSudokuSolver.Helpers.Validator.GetStatus(killerSudoku) == KillerSudokuSolver.Helpers.Status.Completed)
                 {
-                    Console.WriteLine($"Completed the sudoku {killerSudoku.Name} in {stopwatch.Elapsed} with {killerSudoku.randomCount} random values");
+                    Console.WriteLine($"Completed the sudoku {killerSudoku.Name} in {stopwatch.Elapsed} with {killerSudoku.randomCount} random values. Entered {killerSudoku.Board.Logger.ErrorCount} invalid random values");
                 }
                 else
                 {

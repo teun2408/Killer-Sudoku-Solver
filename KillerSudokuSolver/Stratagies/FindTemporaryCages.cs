@@ -51,6 +51,7 @@ namespace KillerSudokuSolver.Stratagies
                     killerSudoku.TempooraryCages.Add(temporaryCage);
                 }
             });
+
             if(killerSudoku.TempooraryCages.Count != cageCount)
             {
                 return new Tuple<KillerSudoku, bool>(killerSudoku, true);

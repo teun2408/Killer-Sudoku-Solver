@@ -7,10 +7,12 @@ namespace KillerSudokuSolver.Models
     public class Logger
     {
         public bool log;
+        public int ErrorCount { get; set; }
 
         public Logger(bool log = true)
         {
             this.log = log;
+            ErrorCount = 0;
         }
 
         public void Log(string mes, bool line = false)

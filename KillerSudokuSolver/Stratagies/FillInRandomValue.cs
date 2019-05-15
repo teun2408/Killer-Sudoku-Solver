@@ -25,15 +25,18 @@ namespace KillerSudokuSolver.Stratagies
                 .Where(x => x.Contains(field))
                 .ToList();
 
-            List<int> posval = rowColKube.SelectMany(x => x.SelectMany(y => y.PossibleValues))
+            if (field.Cage != null)
+            {
+                rowColKube.Add(field.Cage.Fields);
+            }
+
+            rowColKube.SelectMany(x => x.SelectMany(y => y.PossibleValues))
                 .Where(x => field.PossibleValues.Contains(x))
                 .GroupBy(x => x)
                 .Select(x => new Tuple<int, int>(x.Key, x.Count()))
                 .OrderBy(x => x.Item2)
                 .Select(x => x.Item1)
-                .ToList();
-
-            posval
+                .ToList()
                 .ForEach(val =>
                 {
                     if (Validator.GetStatus(killerSudoku) == Status.Valid)

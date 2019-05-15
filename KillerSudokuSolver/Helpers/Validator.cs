@@ -10,8 +10,10 @@ namespace KillerSudokuSolver.Helpers
     {
         public static Status GetStatus(KillerSudoku killerSudoku)
         {
-            if (!StillValid(killerSudoku)) return Status.Invalid;
-            if (Completed(killerSudoku)) return Status.Completed;
+            if (!StillValid(killerSudoku))
+                return Status.Invalid;
+            if (Completed(killerSudoku))
+                return Status.Completed;
             return Status.Valid;
         }
 
@@ -46,8 +48,7 @@ namespace KillerSudokuSolver.Helpers
                     .Where(x => x.Value == 0)
                     .ToList();
 
-            int fieldwithzerovalues = killerSudoku.Board.allFields().Where(x => x.Value == 0).Count();
-            bool zeroPossibleValues = zeroPos.Count() == 0 || zeroPos.Count() == fieldwithzerovalues;
+            bool zeroPossibleValues = zeroPos.Count() == 0;
 
             bool doubleValues = Helper.GetAllRowColKubes(killerSudoku)
                 .Where(box =>
