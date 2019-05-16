@@ -37,6 +37,7 @@ namespace SudokuTestProject.Sudokus.Normal
 
                 new Field(new Tuple<int, int>(6, 2), 6),
                 new Field(new Tuple<int, int>(6, 3), 4),
+                new Field(new Tuple<int, int>(6, 6), 2),
 
                 new Field(new Tuple<int, int>(7, 1), 2),
                 new Field(new Tuple<int, int>(7, 5), 5),
