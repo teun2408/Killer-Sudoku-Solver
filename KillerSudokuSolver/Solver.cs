@@ -14,13 +14,9 @@ namespace KillerSudokuSolver
         public static KillerSudoku Start(KillerSudoku killerSudoku)
         {
             killerSudoku.Board.allFields()
-                .ForEach(field =>
-                {
-                    if(field.Value == 0)
-                    {
-                        field.PossibleValues = Helper.PossibleValues(killerSudoku);
-                    }
-                });
+                .Where(field => field.Value == 0)
+                .ToList()
+                .ForEach(field => field.PossibleValues = Helper.PossibleValues(killerSudoku));
 
             return Solve(killerSudoku);
         }
